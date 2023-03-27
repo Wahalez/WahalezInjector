@@ -1,0 +1,10 @@
+^C:\USERS\DANIE\ONEDRIVE\DESKTOP\DEV\IMGUI_LEARNING\IMGUI_LRN1\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/danie/OneDrive/Desktop/Dev/imgui_learning/imgui_lrn1 -BC:/Users/danie/OneDrive/Desktop/Dev/imgui_learning/imgui_lrn1/build --check-stamp-file C:/Users/danie/OneDrive/Desktop/Dev/imgui_learning/imgui_lrn1/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

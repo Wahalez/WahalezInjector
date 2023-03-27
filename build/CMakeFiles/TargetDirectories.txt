@@ -1,0 +1,4 @@
+C:/Users/danie/OneDrive/Desktop/Dev/imgui_learning/imgui_lrn1/build/CMakeFiles/imgui.dir
+C:/Users/danie/OneDrive/Desktop/Dev/imgui_learning/imgui_lrn1/build/CMakeFiles/main.dir
+C:/Users/danie/OneDrive/Desktop/Dev/imgui_learning/imgui_lrn1/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/danie/OneDrive/Desktop/Dev/imgui_learning/imgui_lrn1/build/CMakeFiles/ZERO_CHECK.dir
