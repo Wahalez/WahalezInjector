@@ -21,6 +21,19 @@ void CreateRenderTarget();
 void CleanupRenderTarget();
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
+// My shit -----
+void buttonClickCounter() {
+    static int counter = 0;
+
+    if(ImGui::Button("Blyat"))
+        counter++;
+
+    ImGui::SameLine();
+    ImGui::Text("counter = %d", counter);
+
+}
+
+
 // Main code
 int main(int, char**)
 {
@@ -136,6 +149,15 @@ int main(int, char**)
                 show_another_window = false;
             ImGui::End();
         }
+
+        // ------- My experimental shit -------
+        {
+            ImGui::Begin("Chupapi");
+            buttonClickCounter();
+            ImGui::End();
+
+        }
+        // ------------------------------------
 
         // Rendering
         ImGui::Render();
