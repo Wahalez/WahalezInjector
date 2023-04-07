@@ -12,6 +12,7 @@ set(IMGUI_BACKENDS
     ${CMAKE_CURRENT_SOURCE_DIR}/imgui/backends/imgui_impl_win32.cpp
 )
 file(GLOB IMGUI_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/imgui/*.cpp)
+file(GLOB EXE_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 
 #build the imgui lib
 add_library(imgui 
@@ -19,7 +20,7 @@ add_library(imgui
     ${IMGUI_SOURCES}
 )   
 
-add_executable(main src/main.cpp)
+add_executable(main ${EXE_SOURCES})
 
 #link imgui built library to main executable
 target_link_libraries(main PRIVATE d3d11)
