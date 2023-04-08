@@ -1,14 +1,38 @@
 #include "gui.hpp"
 
-ID3D11Device* g_pd3dDevice = NULL;
-ID3D11DeviceContext* g_pd3dDeviceContext = NULL;
-IDXGISwapChain* g_pSwapChain = NULL;
-ID3D11RenderTargetView* g_mainRenderTargetView = NULL;
+void app() {
 
-WNDCLASSEXW wc;
-HWND hwnd;
+    setNextWindowSizeAndPos();
 
-ImGuiIO* io;
+    if (!ImGui::Begin("Test", NULL, getWindowFlags())) {
+        ImGui::End();
+        return;
+    }
+
+
+
+    ImGui::End();
+}
+
+void setNextWindowSizeAndPos() {
+    // Retrieve the size of the window border, title bar, and menu bar
+    RECT windowRect = { 0, 0, WIDTH, HEIGHT };
+    AdjustWindowRect(&windowRect, WS_OVERLAPPEDWINDOW, FALSE);
+    int borderSize = -windowRect.left;
+    int titleBarSize = -windowRect.top;
+
+    // Adjust the size of the ImGui window to account for the window border, title bar, and menu bar
+    ImGui::SetNextWindowSize(ImVec2(WIDTH - 2 * borderSize, HEIGHT - titleBarSize - borderSize));
+    ImGui::SetNextWindowPos(ImVec2(0, 0));
+}
+
+ImGuiWindowFlags getWindowFlags() {
+    ImGuiWindowFlags window_flags = 0;
+    window_flags |= ImGuiWindowFlags_NoTitleBar;
+    window_flags |= ImGuiWindowFlags_NoResize;
+    window_flags |= ImGuiWindowFlags_NoMove;
+    return window_flags;
+}
 
 void cleanup() {
     ImGui_ImplDX11_Shutdown();
@@ -41,7 +65,7 @@ void setupPlatformRendererBackends() {
 void createAppWindow() {
     wc = { sizeof(wc), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, L"ImGui Example", NULL };
     ::RegisterClassExW(&wc);
-    hwnd = ::CreateWindowW(wc.lpszClassName, L"Dear ImGui DirectX11 Example", WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, NULL, NULL, wc.hInstance, NULL);
+    hwnd = ::CreateWindowW(wc.lpszClassName, appName, WS_OVERLAPPEDWINDOW, 100, 100, WIDTH, HEIGHT, NULL, NULL, wc.hInstance, NULL);
 }
 
 void setupImguiContext() {
