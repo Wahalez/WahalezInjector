@@ -9,9 +9,29 @@ void app() {
         return;
     }
 
-    ImGui::Text("Select Process");
+    ImGui::Text("Select Process: ");
+
+    ImGui::SameLine();
+    processCombo();
+
 
     ImGui::End();
+}
+
+void processCombo() {
+    static int current_item = 0;
+
+    struct Funcs {
+        static bool ItemGetter(void* data, int n, const char** out_str) {
+            std::vector<PROCESSENTRY32>* procList = reinterpret_cast<std::vector<PROCESSENTRY32>*>(data);
+            *out_str = ConcatenateStrings(procList->data()[n].th32ProcessID, procList->data()[n].szExeFile);
+            return true;
+        }
+    };
+
+    ImGui::Combo(" ", &current_item, &Funcs::ItemGetter, reinterpret_cast<void*>(&procList),
+        static_cast<int>(procList.size()));
+
 }
 
 void setNextWindowSizeAndPos() {

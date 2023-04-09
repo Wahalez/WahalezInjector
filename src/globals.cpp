@@ -8,3 +8,5 @@ ID3D11RenderTargetView* g_mainRenderTargetView = NULL;
 WNDCLASSEXW wc;
 HWND hwnd;
 ImGuiIO* io;
+
+std::vector<PROCESSENTRY32> procList;

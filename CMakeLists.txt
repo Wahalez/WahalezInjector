@@ -2,6 +2,12 @@ cmake_minimum_required(VERSION 3.20)
 
 project(imgui_lrn1)
 
+# Set CMAKE_CXX_FLAGS to include Unicode support
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DUNICODE -D_UNICODE")
+
+# Set CMAKE_C_FLAGS to include Unicode support
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DUNICODE -D_UNICODE")
+
 #header files directories
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/imgui)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)

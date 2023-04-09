@@ -20,3 +20,6 @@ void cleanup();
 ImGuiWindowFlags getWindowFlags();
 void setNextWindowSizeAndPos();
 void app();
+
+void processCombo();
+

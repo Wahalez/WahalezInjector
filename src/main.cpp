@@ -1,6 +1,14 @@
 #include "gui.hpp"
 
+//#define _DEBUG_
+
 int main(int, char**) {
+    procList = getProcList();
+
+#ifdef _DEBUG_
+    _debug_printProcesses(procList);
+#endif
+
     createAppWindow();
     if (!initializeDirect3D()) return 1;
     showWindow();
@@ -25,7 +33,6 @@ int main(int, char**) {
             break;
 
         startNewFrame();
-
         app();
 
         const float clear_color_with_alpha[4] = { clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w };
