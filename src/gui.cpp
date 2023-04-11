@@ -1,7 +1,9 @@
 #include "gui.hpp"
+#include <Commdlg.h>
+
+inline char filenameA[MAX_PATH] = "N/A";
 
 void app() {
-
     setNextWindowSizeAndPos();
 
     if (!ImGui::Begin("Test", NULL, getWindowFlags())) {
@@ -14,9 +16,41 @@ void app() {
     ImGui::SameLine();
     processCombo();
 
+    // Create a button and register the callback function
+    if (ImGui::Button("Select DLL"))
+         OpenFileDialog(filenameA, sizeof(filenameA));
+      
+    ImGui::SameLine();
+    ImGui::Text("%s", filenameA);
+
 
     ImGui::End();
 }
+
+void OpenFileDialog(char* filename, int size)
+{
+    OPENFILENAMEA ofn;     // common dialog box structure
+    char szFile[260] = ""; // buffer for file name
+    // Initialize OPENFILENAME
+    ZeroMemory(&ofn, sizeof(ofn));
+    ofn.lStructSize = sizeof(ofn);
+    ofn.hwndOwner = NULL;
+    ofn.lpstrFile = szFile;
+    ofn.nMaxFile = sizeof(szFile);
+    ofn.lpstrFilter = "Dynamic Link Libraries\0*.dll\0All Files\0*.*\0";
+    ofn.nFilterIndex = 1;
+    ofn.lpstrFileTitle = NULL;
+    ofn.nMaxFileTitle = 0;
+    ofn.lpstrInitialDir = NULL;
+    ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+    // Display the Open dialog box. 
+    if (GetOpenFileNameA(&ofn) == TRUE)
+    {
+        strncpy_s(filename, size, ofn.lpstrFile, _TRUNCATE);
+    }
+}
+
+
 
 void processCombo() {
     static int current_item = 0;
