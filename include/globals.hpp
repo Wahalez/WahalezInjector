@@ -9,7 +9,7 @@
 #include <string>
 #include <d3d11.h>
 
-#define HEIGHT 300
+#define HEIGHT 200
 #define WIDTH 600
 
 static const wchar_t* appName = L"Wahalez Injector";
@@ -24,3 +24,5 @@ extern HWND hwnd;
 extern ImGuiIO* io;
 
 extern std::vector<PROCESSENTRY32> procList;
+
+extern char filenameA[MAX_PATH];

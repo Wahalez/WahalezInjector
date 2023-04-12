@@ -1,7 +1,4 @@
 #include "gui.hpp"
-#include <Commdlg.h>
-
-inline char filenameA[MAX_PATH] = "N/A";
 
 void app() {
     setNextWindowSizeAndPos();
@@ -16,22 +13,25 @@ void app() {
     ImGui::SameLine();
     processCombo();
 
-    // Create a button and register the callback function
     if (ImGui::Button("Select DLL"))
-         OpenFileDialog(filenameA, sizeof(filenameA));
-      
+        OpenFileDialog(filenameA, sizeof(filenameA));
     ImGui::SameLine();
     ImGui::Text("%s", filenameA);
 
+    if (ImGui::Button("Inject"))
+        ;
+
+    ImGui::SameLine();
+
+    if (ImGui::Button("Refresh Processes"))
+        ;
 
     ImGui::End();
 }
 
-void OpenFileDialog(char* filename, int size)
-{
-    OPENFILENAMEA ofn;     // common dialog box structure
-    char szFile[260] = ""; // buffer for file name
-    // Initialize OPENFILENAME
+void OpenFileDialog(char* filename, int size) {
+    OPENFILENAMEA ofn;
+    char szFile[MAX_PATH] = "";
     ZeroMemory(&ofn, sizeof(ofn));
     ofn.lStructSize = sizeof(ofn);
     ofn.hwndOwner = NULL;
@@ -43,14 +43,10 @@ void OpenFileDialog(char* filename, int size)
     ofn.nMaxFileTitle = 0;
     ofn.lpstrInitialDir = NULL;
     ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
-    // Display the Open dialog box. 
-    if (GetOpenFileNameA(&ofn) == TRUE)
-    {
+    if (GetOpenFileNameA(&ofn) == TRUE) {
         strncpy_s(filename, size, ofn.lpstrFile, _TRUNCATE);
     }
 }
-
-
 
 void processCombo() {
     static int current_item = 0;
