@@ -10,5 +10,6 @@ HWND hwnd;
 ImGuiIO* io;
 
 std::vector<PROCESSENTRY32> procList;
+int selectedProcess;
 
 char filenameA[MAX_PATH] = "N/A";

@@ -18,13 +18,16 @@ void app() {
     ImGui::SameLine();
     ImGui::Text("%s", filenameA);
 
-    if (ImGui::Button("Inject"))
-        ;
+    if (ImGui::Button("Inject")) {
+        bool injectStat = injectDLL();
+        // TODO: show success message if succeeded and exit app \ reset everything.
+
+    }
 
     ImGui::SameLine();
 
     if (ImGui::Button("Refresh Processes"))
-        ;
+        procList = getProcList();
 
     ImGui::End();
 }
@@ -37,7 +40,7 @@ void OpenFileDialog(char* filename, int size) {
     ofn.hwndOwner = NULL;
     ofn.lpstrFile = szFile;
     ofn.nMaxFile = sizeof(szFile);
-    ofn.lpstrFilter = "Dynamic Link Libraries\0*.dll\0All Files\0*.*\0";
+    ofn.lpstrFilter = "Dynamic Link Libraries\0*.dll\0";
     ofn.nFilterIndex = 1;
     ofn.lpstrFileTitle = NULL;
     ofn.nMaxFileTitle = 0;
@@ -49,7 +52,6 @@ void OpenFileDialog(char* filename, int size) {
 }
 
 void processCombo() {
-    static int current_item = 0;
 
     struct Funcs {
         static bool ItemGetter(void* data, int n, const char** out_str) {
@@ -59,7 +61,7 @@ void processCombo() {
         }
     };
 
-    ImGui::Combo(" ", &current_item, &Funcs::ItemGetter, reinterpret_cast<void*>(&procList),
+    ImGui::Combo(" ", &selectedProcess, &Funcs::ItemGetter, reinterpret_cast<void*>(&procList),
         static_cast<int>(procList.size()));
 
 }

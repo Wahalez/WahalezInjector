@@ -24,5 +24,6 @@ extern HWND hwnd;
 extern ImGuiIO* io;
 
 extern std::vector<PROCESSENTRY32> procList;
+extern int selectedProcess;
 
 extern char filenameA[MAX_PATH];

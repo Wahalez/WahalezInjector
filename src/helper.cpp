@@ -20,3 +20,33 @@ const char* ConcatenateStrings(DWORD processID, const wchar_t* fileName) {
     buf[sizeof(buf) - 1] = '\0';
     return buf;
 }
+
+bool injectDLL() {
+    PROCESSENTRY32 selectedProc = procList.at(selectedProcess);
+
+    DWORD procID = selectedProc.th32ProcessID;
+
+    HANDLE hProc = OpenProcess(PROCESS_ALL_ACCESS, 0, procID);
+
+    if (hProc && hProc != INVALID_HANDLE_VALUE) {
+        void* loc = VirtualAllocEx(hProc, 0, (strlen(filenameA) + 1) * sizeof(CHAR), MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
+
+        if (loc != 0) {
+            WriteProcessMemory(hProc, loc, filenameA, (strlen(filenameA) + 1) * sizeof(CHAR), nullptr);
+
+            HANDLE hThread = CreateRemoteThread(hProc, NULL, 0, reinterpret_cast<LPTHREAD_START_ROUTINE>(LoadLibrary), loc, NULL, NULL);
+
+            if (hThread)
+                CloseHandle(hThread);
+            else {
+                CloseHandle(hProc);
+                return false;
+            }
+        }
+        CloseHandle(hProc);
+    }
+    else
+        return false;
+
+    return true;
+}
