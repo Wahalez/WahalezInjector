@@ -1,6 +1,7 @@
 #include "gui.hpp"
 
 void app() {
+    static char* msg = "How are you here?";
     setNextWindowSizeAndPos();
 
     if (!ImGui::Begin("Test", NULL, getWindowFlags())) {
@@ -16,13 +17,15 @@ void app() {
     if (ImGui::Button("Select DLL"))
         OpenFileDialog(filenameA, sizeof(filenameA));
     ImGui::SameLine();
-    ImGui::Text("%s", filenameA);
+    ImGui::Text("%s", WcharToChar(filenameA));
 
     if (ImGui::Button("Inject")) {
         bool injectStat = injectDLL();
-        // TODO: show success message if succeeded and exit app \ reset everything.
-
+        msg = injectStat ? const_cast<char*>("Successfully injected the DLL.") : const_cast<char*>("Error.");
+        std::cout << msg << std::endl;
+        ImGui::OpenPopup("Message");
     }
+    popupMessageAndExit(msg);
 
     ImGui::SameLine();
 
@@ -32,7 +35,22 @@ void app() {
     ImGui::End();
 }
 
-void OpenFileDialog(char* filename, int size) {
+void popupMessageAndExit(char* message) {
+    ImVec2 center = ImGui::GetMainViewport()->GetCenter();
+    ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+
+    if (ImGui::BeginPopupModal("Message", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
+        ImGui::TextUnformatted(message);
+        ImGui::Separator();
+
+        if (ImGui::Button("OK", ImVec2(120, 0))) {
+            exit(0);
+        }
+        ImGui::EndPopup();
+    }
+}
+
+void OpenFileDialog(TCHAR* filename, int size) {
     OPENFILENAMEA ofn;
     char szFile[MAX_PATH] = "";
     ZeroMemory(&ofn, sizeof(ofn));
@@ -47,7 +65,10 @@ void OpenFileDialog(char* filename, int size) {
     ofn.lpstrInitialDir = NULL;
     ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
     if (GetOpenFileNameA(&ofn) == TRUE) {
-        strncpy_s(filename, size, ofn.lpstrFile, _TRUNCATE);
+        WCHAR wideStr[256];
+        int nChars = MultiByteToWideChar(CP_ACP, 0, ofn.lpstrFile, -1, wideStr, 256);
+        if (nChars)
+            wcsncpy_s(filename, size, wideStr, _TRUNCATE);
     }
 }
 

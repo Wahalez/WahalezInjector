@@ -12,4 +12,4 @@ ImGuiIO* io;
 std::vector<PROCESSENTRY32> procList;
 int selectedProcess;
 
-char filenameA[MAX_PATH] = "N/A";
+TCHAR filenameA[MAX_PATH] = L"N/A";

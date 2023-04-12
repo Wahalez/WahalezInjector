@@ -23,5 +23,6 @@ void app();
 
 void processCombo();
 
-void OpenFileDialog(char* filename, int size);
+void OpenFileDialog(TCHAR* filename, int size);
 
+void popupMessageAndExit(char* message);

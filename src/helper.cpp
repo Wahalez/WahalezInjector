@@ -29,13 +29,13 @@ bool injectDLL() {
     HANDLE hProc = OpenProcess(PROCESS_ALL_ACCESS, 0, procID);
 
     if (hProc && hProc != INVALID_HANDLE_VALUE) {
-        void* loc = VirtualAllocEx(hProc, 0, (strlen(filenameA) + 1) * sizeof(CHAR), MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
+        void* loc = VirtualAllocEx(hProc, 0, (_tcslen(filenameA) + 1) * sizeof(TCHAR), MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
 
         if (loc != 0) {
-            WriteProcessMemory(hProc, loc, filenameA, (strlen(filenameA) + 1) * sizeof(CHAR), nullptr);
+            WriteProcessMemory(hProc, loc, filenameA, (_tcslen(filenameA) + 1) * sizeof(TCHAR), nullptr);
 
             HANDLE hThread = CreateRemoteThread(hProc, NULL, 0, reinterpret_cast<LPTHREAD_START_ROUTINE>(LoadLibrary), loc, NULL, NULL);
-
+            std::cout << "help" << std::endl;
             if (hThread)
                 CloseHandle(hThread);
             else {
