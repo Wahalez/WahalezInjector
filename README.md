@@ -19,4 +19,4 @@ The executable file can be found in the same \ Debug directory.
 Usage is simple, pick a process that is to be injected to, pick the dll file and click Inject. 
 A prompt will popup saying wether the operation succeeded or not.
 
-![Screenshot](images\1.PNG)
+![Screenshot](./images/1.PNG)
