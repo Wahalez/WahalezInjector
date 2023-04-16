@@ -22,7 +22,7 @@ void app() {
     if (ImGui::Button("Inject")) {
         bool injectStat = injectDLL();
         msg = injectStat ? const_cast<char*>("Successfully injected the DLL.") : const_cast<char*>("Error.");
-        std::cout << msg << std::endl;
+        // std::cout << msg << std::endl;
         ImGui::OpenPopup("Message");
     }
     popupMessageAndExit(msg);
@@ -65,11 +65,10 @@ void OpenFileDialog(TCHAR* filename, int size) {
     ofn.lpstrInitialDir = NULL;
     ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
     if (GetOpenFileNameA(&ofn) == TRUE) {
-        TCHAR wideStr[256];
-        int nChars = MultiByteToWideChar(CP_ACP, 0, ofn.lpstrFile, -1, wideStr, 256);
-        std::wcout << wideStr << std::endl;
+        TCHAR wideStr[1024];
+        int nChars = MultiByteToWideChar(CP_ACP, 0, ofn.lpstrFile, -1, wideStr, 1024);
         if (nChars)
-            wcsncpy_s(filename, wcslen(wideStr), wideStr, _TRUNCATE);
+            wcsncpy_s(filename, wcslen(wideStr) + sizeof(TCHAR), wideStr, _TRUNCATE);
     }
 }
 
