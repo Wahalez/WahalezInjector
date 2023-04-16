@@ -13,7 +13,7 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DUNICODE -D_UNICODE")
 #header files directories
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/imgui)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
-include_directories("C:\\msys64\\mingw64\\include")
+#include_directories("C:\\msys64\\mingw64\\include")
 
 #set imgui sources
 set(IMGUI_BACKENDS 
