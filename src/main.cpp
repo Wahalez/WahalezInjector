@@ -7,7 +7,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     procList = getProcList();
 
 #ifdef _DEBUG_
-    _debug_printProcesses(procList);
+    //_debug_printProcesses(procList);
+    AllocConsole();
+    FILE *f;
+    freopen_s(&f, "CONOUT$", "w", stdout);
 #endif
 
     createAppWindow();

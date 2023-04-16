@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.20)
 
 project(wahalez_injector)
 
+add_definitions(-DUNICODE -D_UNICODE)
+
 # Set CMAKE_CXX_FLAGS to include Unicode support
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DUNICODE -D_UNICODE")
 

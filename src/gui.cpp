@@ -65,10 +65,11 @@ void OpenFileDialog(TCHAR* filename, int size) {
     ofn.lpstrInitialDir = NULL;
     ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
     if (GetOpenFileNameA(&ofn) == TRUE) {
-        WCHAR wideStr[256];
+        TCHAR wideStr[256];
         int nChars = MultiByteToWideChar(CP_ACP, 0, ofn.lpstrFile, -1, wideStr, 256);
+        std::wcout << wideStr << std::endl;
         if (nChars)
-            wcsncpy_s(filename, size, wideStr, _TRUNCATE);
+            wcsncpy_s(filename, wcslen(wideStr), wideStr, _TRUNCATE);
     }
 }
 
