@@ -28,7 +28,7 @@ add_library(imgui
 )   
 target_link_libraries(imgui d3d11 dxgi d3dcompiler dwmapi)
 
-add_executable(main ${EXE_SOURCES})
+add_executable(main WIN32 ${EXE_SOURCES})
 
 #link imgui built library to main executable
 target_link_libraries(main PRIVATE d3d11)
