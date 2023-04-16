@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(imgui_lrn1)
+project(wahalez_injector)
 
 # Set CMAKE_CXX_FLAGS to include Unicode support
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DUNICODE -D_UNICODE")
