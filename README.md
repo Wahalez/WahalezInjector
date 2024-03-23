@@ -16,7 +16,7 @@ change directory to the build directory:
 
 Then, run the next commands to build the executable file: 
 1. `cmake ..`
-2. `cmake --build.`
+2. `cmake --build .`
 
 The executable file can be found in the same \ Debug directory. 
 
